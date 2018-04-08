@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -32,9 +31,8 @@ export class DemoComponent implements OnInit {
     'en': 'English',
     'fr': 'French',
   };
-  frameworkList: any = ['material-design', 'bootstrap-3', 'bootstrap-4', 'no-framework'];
+  frameworkList: any = ['bootstrap-3', 'bootstrap-4', 'no-framework'];
   frameworks: any = {
-    'material-design': 'Material Design',
     'bootstrap-3': 'Bootstrap 3',
     'bootstrap-4': 'Bootstrap 4',
     'no-framework': 'None (plain HTML)',
@@ -43,7 +41,7 @@ export class DemoComponent implements OnInit {
   selectedSetName = '';
   selectedExample = 'ng-jsf-flex-layout';
   selectedExampleName = 'Flexbox layout';
-  selectedFramework = 'material-design';
+  selectedFramework = 'bootstrap-3';
   selectedLanguage = 'en';
   visible: { [item: string]: boolean } = {
     options: true,

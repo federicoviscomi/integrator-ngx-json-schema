@@ -19,4 +19,4 @@ Maintainers will extend courtesy and respect to everyone involved in this projec
 
 If any member of the community violates this code of conduct, the maintainers reserve the right to take action, including editing or removing issues, comments, and PRs, or, in the case of extreme or repeated violators, even blocking accounts and prohibiting offenders from participating in this project.
 
-If you are subject to or witness unacceptable behavior, or have other concerns, please email the project lead at [dschnelldavis@gmail.com](mailto:dschnelldavis@gmail.com).
+If you are subject to or witness unacceptable behavior, or have other concerns, please email the project lead at [catull@gmail.com](mailto:catull@gmail.com).

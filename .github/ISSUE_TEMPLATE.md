@@ -45,7 +45,7 @@ Other relevant software or packages:
 <!-- e.g. If this is a feature request, what is the use case for the new feature? -->
 
 
-[demonstration-playground]: https://angular2-json-schema-form.firebaseapp.com
+[demonstration-playground]: https://ngx-json-schema.firebaseapp.com
 [stack-overflow]: https://stackoverflow.com/search?q=angular2+json+schema+form
 [jsfiddle]: http://jsfiddle.net
 [plunker]: http://plnkr.co/edit

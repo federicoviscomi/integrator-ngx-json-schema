@@ -1,9 +1,9 @@
 {
-  "name": "angular2-json-schema-form",
-  "version": "0.7.0-alpha.1",
+  "name": "ngx-json-schema",
+  "version": "0.7.0-alpha.2",
   "author": {
     "name": "David Schnell-Davis",
-    "email": "dschnelldavis@gmail.com"
+    "email": "catull@gmail.com"
   },
   "description": "Angular JSON Schema Form builder",
   "keywords": [
@@ -23,15 +23,15 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dschnelldavis/angular2-json-schema-form"
+    "url": "git+https://github.com/catull/ngx-json-schema"
   },
   "bugs": {
-    "url": "https://github.com/dschnelldavis/angular2-json-schema-form/issues"
+    "url": "https://github.com/catull/ngx-json-schema/issues"
   },
-  "main": "./bundles/angular2-json-schema-form.umd.js",
-  "module": "./angular2-json-schema-form.es5.js",
-  "es2015": "./angular2-json-schema-form.js",
-  "typings": "./angular2-json-schema-form.d.ts",
+  "main": "./bundles/ngx-json-schema.umd.js",
+  "module": "./ngx-json-schema.es5.js",
+  "es2015": "./ngx-json-schema.js",
+  "typings": "./ngx-json-schema.d.ts",
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"
@@ -59,18 +59,15 @@
     "lodash": "4.x"
   },
   "peerDependencies": {
-    "@angular/cdk": ">=5.0.0",
     "@angular/common": ">=4.0.0",
     "@angular/core": ">=4.0.0",
     "@angular/flex-layout": ">=2.0.0",
     "@angular/forms": ">=4.0.0",
-    "@angular/material": ">=5.0.0",
     "@angular/platform-browser": ">=4.0.0",
     "rxjs": ">=5.0.0"
   },
   "devDependencies": {
     "@angular/animations": "^5.2.1",
-    "@angular/cdk": "^5.1.0",
     "@angular/cli": "^1.6.5",
     "@angular/common": "^5.2.1",
     "@angular/compiler": "^5.2.1",
@@ -80,7 +77,6 @@
     "@angular/forms": "^5.2.1",
     "@angular/http": "^5.2.1",
     "@angular/language-service": "^5.2.1",
-    "@angular/material": "^5.1.0",
     "@angular/platform-browser": "^5.2.1",
     "@angular/platform-browser-dynamic": "^5.2.1",
     "@angular/router": "^5.2.1",

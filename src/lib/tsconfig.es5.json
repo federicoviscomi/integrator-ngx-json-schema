@@ -14,8 +14,8 @@
   "angularCompilerOptions": {
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "angular2-json-schema-form.js",
-    "flatModuleId": "angular2-json-schema-form",
+    "flatModuleOutFile": "ngx-json-schema.js",
+    "flatModuleId": "ngx-json-schema",
     "genDir": "../../out-ngc/lib-gen-dir/"
   }
 }

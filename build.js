@@ -52,12 +52,10 @@ return Promise.resolve()
       external: [
         // List of dependencies
         // https://github.com/rollup/rollup/wiki/JavaScript-API#external
-        '@angular/cdk',
         '@angular/common',
         '@angular/core',
         '@angular/flex-layout',
         '@angular/forms',
-        '@angular/material',
         '@angular/platform-browser',
         'ajv',
         'hammerjs',
@@ -86,12 +84,10 @@ return Promise.resolve()
           // key   = The library name
           // value = The global variable name on the window object
           // https://rollupjs.org/guide/en#javascript-api
-          '@angular/cdk': 'ng.cdk',
           '@angular/common': 'ng.common',
           '@angular/core': 'ng.core',
           '@angular/flex-layout': 'ng.flexLayout',
           '@angular/forms': 'ng.forms',
-          '@angular/material': 'ng.material',
           '@angular/platform-browser': 'ng.platformBrowser',
           'ajv': 'Ajv',
           'hammerjs': 'hammerjs',

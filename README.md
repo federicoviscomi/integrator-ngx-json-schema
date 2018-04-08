@@ -1,7 +1,7 @@
 # Angular JSON Schema Form
 
-[![npm version](https://img.shields.io/npm/v/angular2-json-schema-form.svg?style=plastic)](https://www.npmjs.com/package/angular2-json-schema-form) [![npm downloads](https://img.shields.io/npm/dm/angular2-json-schema-form.svg?style=plastic)](https://www.npmjs.com/package/angular2-json-schema-form) [![GitHub MIT License](https://img.shields.io/github/license/dschnelldavis/angular2-json-schema-form.svg?style=social)](https://github.com/dschnelldavis/angular2-json-schema-form)
-[![Dependencies](https://david-dm.org/dschnelldavis/angular2-json-schema-form.svg)](https://david-dm.org/dschnelldavis/angular2-json-schema-form) [![devDependencies](https://david-dm.org/dschnelldavis/angular2-json-schema-form/dev-status.svg)](https://david-dm.org/dschnelldavis/angular2-json-schema-form?type=dev)
+[![npm version](https://img.shields.io/npm/v/ngx-json-schema.svg?style=plastic)](https://www.npmjs.com/package/ngx-json-schema) [![npm downloads](https://img.shields.io/npm/dm/ngx-json-schema.svg?style=plastic)](https://www.npmjs.com/package/ngx-json-schema) [![GitHub MIT License](https://img.shields.io/github/license/catull/ngx-json-schema.svg?style=social)](https://github.com/catull/ngx-json-schema)
+[![Dependencies](https://david-dm.org/catull/ngx-json-schema.svg)](https://david-dm.org/catull/ngx-json-schema) [![devDependencies](https://david-dm.org/catull/ngx-json-schema/dev-status.svg)](https://david-dm.org/catull/ngx-json-schema?type=dev)
 
 A [JSON Schema](http://json-schema.org) Form builder for Angular 4 and 5, similar to, and mostly API compatible with,
 
@@ -11,14 +11,14 @@ A [JSON Schema](http://json-schema.org) Form builder for Angular 4 and 5, simila
 
 Note: This is currently a personal proof-of-concept project, and is not affiliated with any of the organizations listed above. (Though they are all awesome, and totally worth checking out.)
 
-## Breaking change in version 0.7.0-alpha.1 and above
+## Breaking change in version 0.7.0-alpha.2 and above
 
 You must now import both JsonSchemaFormModule and a framework module. (Don't worry, it's easy.)
 For full details, see 'To install from NPM and use in your own project', below.
 
 ## Check out the live demo and play with the examples
 
-[Check out some examples here.](https://angular2-json-schema-form.firebaseapp.com/)
+[Check out some examples here.](https://ngx-json-schema.firebaseapp.com/)
 
 This example playground features over 70 different JSON Schemas for you to try (including all examples used by each of the three libraries listed above), and the ability to quickly view any example formatted with Material Design, Bootstrap 3, Bootstrap 4, or without any formatting.
 
@@ -26,11 +26,11 @@ This example playground features over 70 different JSON Schemas for you to try (
 
 ### To install from GitHub
 
-To install [the library and the example playground from GitHub](https://github.com/dschnelldavis/angular2-json-schema-form), clone `https://github.com/dschnelldavis/angular2-json-schema-form.git` with your favorite git program. Or, assuming you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Node/NPM](https://nodejs.org/en/download/) installed, enter the following in your terminal:
+To install [the library and the example playground from GitHub](https://github.com/catull/ngx-json-schema), clone `https://github.com/catull/ngx-json-schema.git` with your favorite git program. Or, assuming you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Node/NPM](https://nodejs.org/en/download/) installed, enter the following in your terminal:
 
 ```shell
-git clone https://github.com/dschnelldavis/angular2-json-schema-form.git angular2-json-schema-form
-cd angular2-json-schema-form
+git clone https://github.com/catull/ngx-json-schema.git ngx-json-schema
+cd ngx-json-schema
 npm install
 npm start
 ```
@@ -50,10 +50,10 @@ If you want detailed documentation describing the individual functions used in t
 
 ### To install from NPM and use in your own project
 
-If, after playing with the examples, you decide this library is functional enough to use in your own project, you can [install it from NPM](https://www.npmjs.com/package/angular2-json-schema-form) using either [NPM](https://www.npmjs.com) or [Yarn](https://yarnpkg.com). To install with NPM, run the following from your terminal:
+If, after playing with the examples, you decide this library is functional enough to use in your own project, you can [install it from NPM](https://www.npmjs.com/package/ngx-json-schema) using either [NPM](https://www.npmjs.com) or [Yarn](https://yarnpkg.com). To install with NPM, run the following from your terminal:
 
 ```shell
-npm install angular2-json-schema-form
+npm install ngx-json-schema
 ```
 
 Then import JsonSchemaFormModule in your main application module, like this:
@@ -64,7 +64,7 @@ import { NgModule } from '@angular/core';
 
 import {
   JsonSchemaFormModule, MaterialDesignFrameworkModule
-} from 'angular2-json-schema-form';
+} from 'ngx-json-schema';
 
 import { AppComponent } from './app.component';
 
@@ -97,9 +97,9 @@ It is also possible to load multiple frameworks and switch between them at runti
 
 For complete examples of how to install and configure Angular JSON Schema Form to work with each included display framework, check out the following seed applications:
 
-* [Angular JSON Schema Form Material Design Seed App](https://github.com/dschnelldavis/ng-jsf-material-design-seed)
-* [Angular JSON Schema Form Bootstrap 3 Seed App](https://github.com/dschnelldavis/ng-jsf-bootstrap3-seed)
-* [Angular JSON Schema Form Bootstrap 4 Seed App](https://github.com/dschnelldavis/ng-jsf-bootstrap4-seed)
+* [Angular JSON Schema Form Material Design Seed App](https://github.com/catull/ng-jsf-material-design-seed)
+* [Angular JSON Schema Form Bootstrap 3 Seed App](https://github.com/catull/ng-jsf-bootstrap3-seed)
+* [Angular JSON Schema Form Bootstrap 4 Seed App](https://github.com/catull/ng-jsf-bootstrap4-seed)
 
 #### Additional notes for Angular CLI
 
@@ -113,7 +113,7 @@ If you use SystemJS, you will also need to make the following changes to your sy
 
 Add these lines to the 'map' section of systemjs.config.js:
 ```javascript
-'angular2-json-schema-form': 'npm:angular2-json-schema-form/bundles/angular2-json-schema-form.umd.js',
+'ngx-json-schema': 'npm:ngx-json-schema/bundles/ngx-json-schema.umd.js',
 'ajv':                       'npm:ajv/dist/ajv.min.js',
 'lodash':                    'npm:lodash/lodash.min.js'
 ```
@@ -434,7 +434,7 @@ let yourNewWidgets = {
 ```
 ...or...
 ```javascript
-import { WidgetLibraryService } from 'angular2-json-schema-form';
+import { WidgetLibraryService } from 'ngx-json-schema';
 ...
 constructor(private widgetLibrary: WidgetLibraryService) { }
 ...
@@ -470,7 +470,7 @@ let yourCustomFramework = {
 ```
 ...or...
 ```javascript
-import { FrameworkLibraryService } from 'angular2-json-schema-form';
+import { FrameworkLibraryService } from 'ngx-json-schema';
 ...
 constructor(private frameworkLibrary: FrameworkLibraryService) { }
 ...
@@ -499,11 +499,11 @@ The two built-in frameworks (in the `/src/lib/src/framework-library` folder) dem
 
 ## Contributions and future development
 
-If you find this library useful, I'd love to hear from you. If you have any trouble with it or would like to request a feature, please [post an issue on GitHub](https://github.com/dschnelldavis/angular2-json-schema-form/issues).
+If you find this library useful, I'd love to hear from you. If you have any trouble with it or would like to request a feature, please [post an issue on GitHub](https://github.com/catull/ngx-json-schema/issues).
 
 If you're a programmer and would like a fun intermediate-level Angular project to hack on, clone the library and take a look at the source code. I wrote this library both because I needed an Angular JSON Schema Form builder, and also as a way to sharpen my Angular skills. This project is just complex enough to be challenging and fun, but not so difficult as to be overwhelming. One thing I particularly like is that each example in the demo playground is like a little puzzle which provides immediate feedback—as soon as it works perfectly, you know you've solved it.
 
-I've also tried to split things into small modules as much as possible, so even though some code is still a bit messy, most individual parts should be straightforward to work with. (A lot of the code is well commented, though some isn't—but I'm working to fix that. If you run into anything you don't understand, please ask.) If you make improvements, please [submit a pull request](https://github.com/dschnelldavis/angular2-json-schema-form/pulls) to share what you've done.
+I've also tried to split things into small modules as much as possible, so even though some code is still a bit messy, most individual parts should be straightforward to work with. (A lot of the code is well commented, though some isn't—but I'm working to fix that. If you run into anything you don't understand, please ask.) If you make improvements, please [submit a pull request](https://github.com/catull/ngx-json-schema/pulls) to share what you've done.
 
 This library is mostly functional (I'm already using it in another large site, where it works well), but it still has many small bugs to fix and enhancements that could be made. Here's a random list of some stuff I know needs to be added or improved:
 
@@ -513,13 +513,13 @@ This library is mostly functional (I'm already using it in another large site, w
 
   * More widgets—There are lots of great form controls available, such as the [Pikaday calendar](https://github.com/dbushell/Pikaday), [Spectrum color picker](http://bgrins.github.io/spectrum), and [ACE code editor](https://ace.c9.io), which just need small custom wrappers to convert them into Angular JSON Schema Form plug-ins. In addition, there are a few additional features of HTML, JSON Schema, and Material Design which could be fixed by adding new widgets:
 
-    * [A file widget](https://github.com/dschnelldavis/angular2-json-schema-form/issues/38)—To support uploading files, this widget would display an HTML file input, and then include the uploaded file in the form's output data, as an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsArrayBuffer) or [DataURL](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL).
+    * [A file widget](https://github.com/catull/ngx-json-schema/issues/38)—To support uploading files, this widget would display an HTML file input, and then include the uploaded file in the form's output data, as an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsArrayBuffer) or [DataURL](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL).
 
-    * [A oneOf widget](https://github.com/dschnelldavis/angular2-json-schema-form/issues/112)—To support schemas using oneOf or anyOf, this widget would enable a user to choose an option from a select list, which would then replace another control on the form.
+    * [A oneOf widget](https://github.com/catull/ngx-json-schema/issues/112)—To support schemas using oneOf or anyOf, this widget would enable a user to choose an option from a select list, which would then replace another control on the form.
 
-    * [An addAdditionalProperties widget](https://github.com/dschnelldavis/angular2-json-schema-form/issues/104)—To support schemas using additionalProperties or patternProperties, this widget would enable users to enter a name to add a new property to an object, and would then add a new control to the form for setting that property's value (similar to the existing [add-reference widget](https://github.com/dschnelldavis/angular2-json-schema-form/blob/master/src/lib/src/widget-library/add-reference.component.ts)).
+    * [An addAdditionalProperties widget](https://github.com/catull/ngx-json-schema/issues/104)—To support schemas using additionalProperties or patternProperties, this widget would enable users to enter a name to add a new property to an object, and would then add a new control to the form for setting that property's value (similar to the existing [add-reference widget](https://github.com/catull/ngx-json-schema/blob/master/src/lib/src/widget-library/add-reference.component.ts)).
 
-    * [A matStepper widget](https://github.com/dschnelldavis/angular2-json-schema-form/issues/123)—To support the [Angular Material Stepper control](https://material.angular.io/components/stepper/overview) (similar to the existing [tabs](https://github.com/dschnelldavis/angular2-json-schema-form/blob/master/src/lib/src/widget-library/tabs.component.ts) widget).
+    * [A matStepper widget](https://github.com/catull/ngx-json-schema/issues/123)—To support the [Angular Material Stepper control](https://material.angular.io/components/stepper/overview) (similar to the existing [tabs](https://github.com/catull/ngx-json-schema/blob/master/src/lib/src/widget-library/tabs.component.ts) widget).
 
 If you like this library, need help, or want to contribute, let me know. I'm busy, so it sometimes takes me a long time to respond, but I will eventually get back to you. :-)
 

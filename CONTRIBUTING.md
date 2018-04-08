@@ -33,12 +33,12 @@ This library is released under the [MIT](https://opensource.org/licenses/MIT) Li
 ## <a name="coc"></a> Code of Conduct
 Be courteous to other people. If you're not sure how to do that, please read and follow our [Code of Conduct][code-of-conduct].
 
-[new-issue]: https://github.com/dschnelldavis/angular2-json-schema-form/issues/new
-[pull-requests]: https://github.com/dschnelldavis/angular2-json-schema-form/pulls
-[github]: https://github.com/dschnelldavis/angular2-json-schema-form
+[new-issue]: https://github.com/catull/ngx-json-schema/issues/new
+[pull-requests]: https://github.com/catull/ngx-json-schema/pulls
+[github]: https://github.com/catull/ngx-json-schema
 [js-style-guide]: https://google.github.io/styleguide/jsguide.html
 [jsfiddle]: http://jsfiddle.net
 [plunker]: http://plnkr.co/edit
 [runnable]: http://runnable.com
-[stackoverflow]: http://stackoverflow.com/questions/tagged/angular2-json-schema-form
-[code-of-conduct]: https://github.com/dschnelldavis/angular2-json-schema-form/CODE_OF_CONDUCT.md
+[stackoverflow]: http://stackoverflow.com/questions/tagged/ngx-json-schema
+[code-of-conduct]: https://github.com/catull/ngx-json-schema/CODE_OF_CONDUCT.md

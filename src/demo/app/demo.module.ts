@@ -4,20 +4,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule,
-  MatMenuModule, MatSelectModule, MatToolbarModule
-} from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 import {
-  JsonSchemaFormModule, NoFrameworkModule, MaterialDesignFrameworkModule,
+  JsonSchemaFormModule, NoFrameworkModule,
   Bootstrap3FrameworkModule, Bootstrap4FrameworkModule
 } from '../../lib';
 
 // To include JsonSchemaFormModule after downloading from NPM, use this instead:
 //
-//   import { JsonSchemaFormModule, NoFrameworkModule } from 'angular2-json-schema-form';
+//   import { JsonSchemaFormModule, NoFrameworkModule } from 'ngx-json-schema';
 //
 // but replace "NoFrameworkModule" with the framework you want to use,
 // then import both JsonSchemaFormModule and the framework module, like this:
@@ -39,12 +35,10 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatIconModule, MatMenuModule, MatSelectModule, MatToolbarModule,
     RouterModule.forRoot(routes),
 
-    NoFrameworkModule, MaterialDesignFrameworkModule,
-    Bootstrap3FrameworkModule, Bootstrap4FrameworkModule,
+    NoFrameworkModule, Bootstrap3FrameworkModule, Bootstrap4FrameworkModule,
 
     JsonSchemaFormModule.forRoot(
       NoFrameworkModule,
-      MaterialDesignFrameworkModule,
       Bootstrap3FrameworkModule,
       Bootstrap4FrameworkModule
     )
@@ -57,7 +51,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 // be activated later by passing the framework's name to the <json-schema-form>
 // tag's `framework` input. The names of these 4 frameworks are:
 //   'no-framework'
-//   'material-design-framework',
 //   'bootstrap-3-framework'
 //   'bootstrap-4-framework'
 
