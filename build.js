@@ -54,7 +54,7 @@ return Promise.resolve()
         // https://github.com/rollup/rollup/wiki/JavaScript-API#external
         '@angular/common',
         '@angular/core',
-        '@angular/flex-layout',
+        // '@angular/flex-layout',
         '@angular/forms',
         '@angular/platform-browser',
         'ajv',
@@ -86,7 +86,7 @@ return Promise.resolve()
           // https://rollupjs.org/guide/en#javascript-api
           '@angular/common': 'ng.common',
           '@angular/core': 'ng.core',
-          '@angular/flex-layout': 'ng.flexLayout',
+          // '@angular/flex-layout': 'ng.flexLayout',
           '@angular/forms': 'ng.forms',
           '@angular/platform-browser': 'ng.platformBrowser',
           'ajv': 'Ajv',
