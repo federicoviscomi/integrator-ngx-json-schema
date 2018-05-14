@@ -37,22 +37,20 @@ export class OrderableDirective implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
+  constructor (
     private elementRef: ElementRef,
     private jsf: JsonSchemaFormService,
     private ngZone: NgZone
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     if (this.orderable && this.layoutNode && this.layoutIndex && this.dataIndex) {
       this.element = this.elementRef.nativeElement;
       this.element.draggable = true;
       this.arrayLayoutIndex = 'move:' + this.layoutIndex.slice(0, -1).toString();
 
       this.ngZone.runOutsideAngular(() => {
-
         // Listeners for movable element being dragged:
-
         this.element.addEventListener('dragstart', (event) => {
           event.dataTransfer.effectAllowed = 'move';
           // Hack to bypass stupid HTML drag-and-drop dataTransfer protection
@@ -68,7 +66,6 @@ export class OrderableDirective implements OnInit {
         });
 
         // Listeners for stationary items being dragged over:
-
         this.element.addEventListener('dragenter', (event) => {
           // Part 1 of a hack, inspired by Dragster, to simulate mouseover and mouseout
           // behavior while dragging items - http://bensmithett.github.io/dragster/
@@ -109,14 +106,15 @@ export class OrderableDirective implements OnInit {
           // Confirm that drop target is another item in the same array as source item
           const sourceArrayIndex = sessionStorage.getItem(this.arrayLayoutIndex);
           const destArrayIndex = this.dataIndex[this.dataIndex.length - 1];
+
           if (sourceArrayIndex !== null && +sourceArrayIndex !== destArrayIndex) {
             // Move array item
             this.jsf.moveArrayItem(this, +sourceArrayIndex, destArrayIndex);
           }
+
           sessionStorage.removeItem(this.arrayLayoutIndex);
           return false;
         });
-
       });
     }
   }

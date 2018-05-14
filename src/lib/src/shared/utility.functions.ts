@@ -14,12 +14,8 @@ import {
  * 'addClasses' function
  *
  * Merges two space-delimited lists of CSS classes and removes duplicates.
- *
- * @param {string | string[] | Set<string>} oldClasses
- * @param {string | string[] | Set<string>} newClasses
- * @return {string | string[] | Set<string>} - Combined classes
  */
-export function addClasses(
+export function addClasses (
   oldClasses: string | string[] | Set<string>,
   newClasses: string | string[] | Set<string>
 ): string | string[] | Set<string> {
@@ -41,17 +37,13 @@ export function addClasses(
  * Makes a shallow copy of a JavaScript object, array, Map, or Set.
  * If passed a JavaScript primitive value (string, number, boolean, or null),
  * it returns the value.
- *
- * @param {Object|Array|string|number|boolean|null} object - The object to copy
- * @param {boolean = false} errors - Show errors?
- * @return {Object|Array|string|number|boolean|null} - The copied object
  */
-export function copy(object: any, errors = false): any {
+export function copy (object: any, errors = false): any {
   if (typeof object !== 'object' || object === null) { return object; }
-  if (isMap(object))    { return new Map(object); }
-  if (isSet(object))    { return new Set(object); }
-  if (isArray(object))  { return [ ...object ];   }
-  if (isObject(object)) { return { ...object };   }
+  if (isMap(object)) { return new Map(object); }
+  if (isSet(object)) { return new Set(object); }
+  if (isArray(object)) { return [...object]; }
+  if (isObject(object)) { return { ...object }; }
   if (errors) {
     console.error('copy error: Object to copy must be a JavaScript object or value.');
   }
@@ -73,13 +65,8 @@ export function copy(object: any, errors = false): any {
  * Setting the optional third parameter to 'top-down' or 'bottom-up' will cause
  * it to also recursively iterate over items in sub-objects or sub-arrays in the
  * specified direction.
- *
- * @param {Object|Array} object - The object or array to iterate over
- * @param {function} fn - the iterator funciton to call on each item
- * @param {boolean = false} errors - Show errors?
- * @return {void}
  */
-export function forEach(
+export function forEach (
   object: any, fn: (v: any, k?: string | number, c?: any, rc?: any) => any,
   recurse: boolean | string = false, rootObject: any = object, errors = false
 ): void {
@@ -117,13 +104,8 @@ export function forEach(
  * of the iterator function.
  *
  * Does NOT recursively iterate over items in sub-objects or sub-arrays.
- *
- * @param {Object | Array} object - The object or array to iterate over
- * @param {function} fn - The iterator funciton to call on each item
- * @param {boolean = false} errors - Show errors?
- * @return {Object | Array} - The resulting object or array
  */
-export function forEachCopy(
+export function forEachCopy (
   object: any, fn: (v: any, k?: string | number, o?: any, p?: string) => any,
   errors = false
 ): any {
@@ -151,12 +133,8 @@ export function forEachCopy(
  * 'hasOwn' utility function
  *
  * Checks whether an object or array has a particular property.
- *
- * @param {any} object - the object to check
- * @param {string} property - the property to look for
- * @return {boolean} - true if object has property, false if not
  */
-export function hasOwn(object: any, property: string): boolean {
+export function hasOwn (object: any, property: string): boolean {
   if (!object || !['number', 'string', 'symbol'].includes(typeof property) ||
     (!isObject(object) && !isArray(object) && !isMap(object) && !isSet(object))
   ) { return false; }
@@ -176,15 +154,8 @@ export function hasOwn(object: any, property: string): boolean {
  *
  * Optionally, it can also use functions to transform the key names and/or
  * the values of the merging object.
- *
- * @param {PlainObject} targetObject - Target object to add keys and values to
- * @param {PlainObject} sourceObject - Source object to copy keys and values from
- * @param {string[]} excludeKeys - Array of keys to exclude
- * @param {(string: string) => string = (k) => k} keyFn - Function to apply to keys
- * @param {(any: any) => any = (v) => v} valueFn - Function to apply to values
- * @return {PlainObject} - Returns targetObject
  */
-export function mergeFilteredObject(
+export function mergeFilteredObject (
   targetObject: PlainObject,
   sourceObject: PlainObject,
   excludeKeys = <string[]>[],
@@ -206,11 +177,8 @@ export function mergeFilteredObject(
  *
  * Accepts any number of string value inputs,
  * and returns an array of all input vaues, excluding duplicates.
- *
- * @param {...string} ...items -
- * @return {string[]} -
  */
-export function uniqueItems(...items): string[] {
+export function uniqueItems (...items): string[] {
   const returnItems = [];
   for (const item of items) {
     if (!returnItems.includes(item)) { returnItems.push(item); }
@@ -223,15 +191,12 @@ export function uniqueItems(...items): string[] {
  *
  * Accepts any number of strings or arrays of string values,
  * and returns a single array containing only values present in all inputs.
- *
- * @param {...string|string[]} ...arrays -
- * @return {string[]} -
  */
-export function commonItems(...arrays): string[] {
+export function commonItems (...arrays): string[] {
   let returnItems = null;
   for (let array of arrays) {
     if (isString(array)) { array = [array]; }
-    returnItems = returnItems === null ? [ ...array ] :
+    returnItems = returnItems === null ? [...array] :
       returnItems.filter(item => array.includes(item));
     if (!returnItems.length) { return []; }
   }
@@ -240,12 +205,8 @@ export function commonItems(...arrays): string[] {
 
 /**
  * 'fixTitle' function
- *
- *
- * @param {string} input -
- * @return {string} -
  */
-export function fixTitle(name: string): string {
+export function fixTitle (name: string): string {
   return name && toTitleCase(name.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/_/g, ' '));
 }
 
@@ -260,16 +221,12 @@ export function fixTitle(name: string): string {
  * This function is built on prior work by John Gruber and David Gouch:
  * http://daringfireball.net/2008/08/title_case_update
  * https://github.com/gouch/to-title-case
- *
- * @param {string} input -
- * @param {string|string[]} forceWords? -
- * @return {string} -
  */
-export function toTitleCase(input: string, forceWords?: string|string[]): string {
+export function toTitleCase (input: string, forceWords?: string | string[]): string {
   if (!isString(input)) { return input; }
   let forceArray: string[] = ['a', 'an', 'and', 'as', 'at', 'but', 'by', 'en',
-   'for', 'if', 'in', 'nor', 'of', 'on', 'or', 'per', 'the', 'to', 'v', 'v.',
-   'vs', 'vs.', 'via'];
+    'for', 'if', 'in', 'nor', 'of', 'on', 'or', 'per', 'the', 'to', 'v', 'v.',
+    'vs', 'vs.', 'via'];
   if (isString(forceWords)) { forceWords = (<string>forceWords).split('|'); }
   if (isArray(forceWords)) { forceArray = forceArray.concat(forceWords); }
   const forceArrayLower: string[] = forceArray.map(w => w.toLowerCase());

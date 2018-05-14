@@ -1,6 +1,6 @@
 {
   "name": "ngx-json-schema",
-  "version": "0.7.0-alpha.4",
+  "version": "0.7.0-alpha.13",
   "author": {
     "name": "Carlo Dapor",
     "email": "catull@gmail.com"
@@ -37,7 +37,6 @@
     "docs": "typedoc src/lib/src/",
     "clean": "rimraf out-ngc dist/*",
     "prebuild": "npm run clean",
-    "build:old": "node build.js",
     "build": "ng-packagr -p ng-package.json",
     "postbuild": "rimraf out-ngc",
     "prepublishOnly": "npm run build",
@@ -47,15 +46,13 @@
     "predeploy": "npm run ng-build",
     "deploy": "firebase deploy"
   },
-  "dependencies": {
-    "ajv": "^6.0.1",
-    "lodash": "4.x"
-  },
   "peerDependencies": {
     "@angular/common": "5.2.10",
     "@angular/core": "5.2.10",
     "@angular/forms": "5.2.10",
     "@angular/platform-browser": "5.2.10",
+    "ajv": "6.5.0",
+    "lodash": "4.17.10",
     "rxjs": "^5.5.10"
   },
   "devDependencies": {
@@ -90,19 +87,14 @@
     "karma-coverage-istanbul-reporter": "^1.4.2",
     "karma-jasmine": "^1.1.1",
     "karma-jasmine-html-reporter": "^1.0.0",
-    "ng-packagr": "^2.4.2",
-    "protractor": "^5.3.1",
+    "ng-packagr": "^2.4.4",
+    "protractor": "^5.3.2",
     "rimraf": "^2.6.2",
-    "rollup": "^0.58.1",
-    "rollup-plugin-commonjs": "^9.1.0",
-    "rollup-plugin-node-resolve-angular": "^2.0.3",
-    "rollup-plugin-sourcemaps": "^0.4.2",
-    "rollup-plugin-uglify": "^3.0.0",
     "rxjs": "^5.5.10",
-    "ts-node": "^6.0.0",
-    "tslint": "^5.9.1",
+    "ts-node": "^6.0.3",
+    "tslint": "^5.10.0",
     "typedoc": "^0.11.1",
-    "typescript": "2.8.3",
+    "typescript": "^2.8.3",
     "zone.js": "^0.8.26"
   }
 }

@@ -47,11 +47,8 @@ import { JsonValidators } from './json.validators';
  * 'buildSchemaFromLayout' function
  *
  * TODO: Build a JSON Schema from a JSON Form layout
- *
- * @param  { any[] } layout - The JSON Form layout
- * @return { any } - The new JSON Schema
  */
-export function buildSchemaFromLayout(layout) {
+export function buildSchemaFromLayout (layout) {
   return;
   // let newSchema: any = { };
   // const walkLayout = (layoutItems: any[], callback: Function): any[] => {
@@ -81,13 +78,8 @@ export function buildSchemaFromLayout(layout) {
  * 'buildSchemaFromData' function
  *
  * Build a JSON Schema from a data object
- *
- * @param  { any } data - The data object
- * @param  { boolean = false } requireAllFields - Require all fields?
- * @param  { boolean = true } isRoot - is root
- * @return { any } - The new JSON Schema
  */
-export function buildSchemaFromData(
+export function buildSchemaFromData (
   data, requireAllFields = false, isRoot = true
 ) {
   let newSchema: any = {};
@@ -128,13 +120,8 @@ export function buildSchemaFromData(
  * 'parentSchema': the schema for the value's parent object or array
  * 'schemaPointer': a pointer to the value's schema within the object's schema
  * 'parentSchemaPointer': a pointer to the schema for the value's parent object or array
- *
- * @param  { any } schema - The schema to get the sub-schema from
- * @param  { Pointer } dataPointer - JSON Pointer (string or array)
- * @param  { string = 'schema' } returnType - what to return?
- * @return { any } - The located sub-schema
  */
-export function getFromSchema(schema, dataPointer, returnType = 'schema') {
+export function getFromSchema (schema, dataPointer, returnType = 'schema') {
   const dataPointerArray: any[] = JsonPointer.parse(dataPointer);
   if (dataPointerArray === null) {
     console.error(`getFromSchema error: Invalid JSON Pointer: ${dataPointer}`);
@@ -174,7 +161,7 @@ export function getFromSchema(schema, dataPointer, returnType = 'schema') {
         schemaPointer.push('additionalItems');
       } else if (subSchema.additionalItems !== false) {
         subSchemaFound = true;
-        subSchema = { };
+        subSchema = {};
         schemaPointer.push('additionalItems');
       }
     } else if (subSchema.type === 'object') {
@@ -188,7 +175,7 @@ export function getFromSchema(schema, dataPointer, returnType = 'schema') {
         schemaPointer.push('additionalProperties');
       } else if (subSchema.additionalProperties !== false) {
         subSchemaFound = true
-        subSchema = { };
+        subSchema = {};
         schemaPointer.push('additionalProperties');
       }
     }
@@ -219,13 +206,8 @@ export function getFromSchema(schema, dataPointer, returnType = 'schema') {
  * pointer:         '/stuff/and/more/and/more/and/more/and/more/stuff'
  * recursiveRefMap: [['/stuff/and/more/and/more', '/stuff/and/more/']]
  * returned:        '/stuff/and/more/stuff'
- *
- * @param  { Pointer } pointer -
- * @param  { Map<string, string> } recursiveRefMap -
- * @param  { Map<string, number> = new Map() } arrayMap - optional
- * @return { string } -
  */
-export function removeRecursiveReferences(
+export function removeRecursiveReferences (
   pointer, recursiveRefMap, arrayMap = new Map()
 ) {
   if (!pointer) { return ''; }
@@ -251,12 +233,8 @@ export function removeRecursiveReferences(
 
 /**
  * 'getInputType' function
- *
- * @param  { any } schema
- * @param  { any = null } layoutNode
- * @return { string }
  */
-export function getInputType(schema, layoutNode: any = null) {
+export function getInputType (schema, layoutNode: any = null) {
   // x-schema-form = Angular Schema Form compatibility
   // widget & component = React Jsonschema Form compatibility
   let controlType = JsonPointer.getFirst([
@@ -272,12 +250,12 @@ export function getInputType(schema, layoutNode: any = null) {
     if (isArray(schemaType)) { // If multiple types listed, use most inclusive type
       schemaType =
         inArray('object', schemaType) && hasOwn(schema, 'properties') ? 'object' :
-        inArray('array', schemaType) && hasOwn(schema, 'items') ? 'array' :
-        inArray('array', schemaType) && hasOwn(schema, 'additionalItems') ? 'array' :
-        inArray('string', schemaType) ? 'string' :
-        inArray('number', schemaType) ? 'number' :
-        inArray('integer', schemaType) ? 'integer' :
-        inArray('boolean', schemaType) ? 'boolean' : 'unknown';
+          inArray('array', schemaType) && hasOwn(schema, 'items') ? 'array' :
+            inArray('array', schemaType) && hasOwn(schema, 'additionalItems') ? 'array' :
+              inArray('string', schemaType) ? 'string' :
+                inArray('number', schemaType) ? 'number' :
+                  inArray('integer', schemaType) ? 'integer' :
+                    inArray('boolean', schemaType) ? 'boolean' : 'unknown';
     }
     if (schemaType === 'boolean') { return 'checkbox'; }
     if (schemaType === 'object') {
@@ -326,13 +304,8 @@ export function getInputType(schema, layoutNode: any = null) {
  *
  * Checks layout and schema nodes for 'inline: true', and converts
  * 'radios' or 'checkboxes' to 'radios-inline' or 'checkboxes-inline'
- *
- * @param  { string } controlType -
- * @param  { any } schema -
- * @param  { any = null } layoutNode -
- * @return { string }
  */
-export function checkInlineType(controlType, schema, layoutNode: any = null) {
+export function checkInlineType (controlType, schema, layoutNode: any = null) {
   if (!isString(controlType) || (
     controlType.slice(0, 8) !== 'checkbox' && controlType.slice(0, 5) !== 'radio'
   )) {
@@ -364,12 +337,8 @@ export function checkInlineType(controlType, schema, layoutNode: any = null) {
  * 'isInputRequired' function
  *
  * Checks a JSON Schema to see if an item is required
- *
- * @param  { any } schema - the schema to check
- * @param  { string } schemaPointer - the pointer to the item to check
- * @return { boolean } - true if the item is required, false if not
  */
-export function isInputRequired(schema, schemaPointer) {
+export function isInputRequired (schema, schemaPointer) {
   if (!isObject(schema)) {
     console.error('isInputRequired error: Input schema must be an object.');
     return false;
@@ -399,33 +368,28 @@ export function isInputRequired(schema, schemaPointer) {
 
 /**
  * 'updateInputOptions' function
- *
- * @param  { any } layoutNode
- * @param  { any } schema
- * @param  { any } jsf
- * @return { void }
  */
-export function updateInputOptions(layoutNode, schema, jsf) {
+export function updateInputOptions (layoutNode, schema, jsf) {
   if (!isObject(layoutNode) || !isObject(layoutNode.options)) { return; }
 
   // Set all option values in layoutNode.options
-  let newOptions: any = { };
+  let newOptions: any = {};
   const fixUiKeys = key => key.slice(0, 3).toLowerCase() === 'ui:' ? key.slice(3) : key;
   mergeFilteredObject(newOptions, jsf.formOptions.defautWidgetOptions, [], fixUiKeys);
-  [ [ JsonPointer.get(schema, '/ui:widget/options'), [] ],
-    [ JsonPointer.get(schema, '/ui:widget'), [] ],
-    [ schema, [
-      'additionalProperties', 'additionalItems', 'properties', 'items',
-      'required', 'type', 'x-schema-form', '$ref'
-    ] ],
-    [ JsonPointer.get(schema, '/x-schema-form/options'), [] ],
-    [ JsonPointer.get(schema, '/x-schema-form'), ['items', 'options'] ],
-    [ layoutNode, [
-      '_id', '$ref', 'arrayItem', 'arrayItemType', 'dataPointer', 'dataType',
-      'items', 'key', 'name', 'options', 'recursiveReference', 'type', 'widget'
-    ] ],
-    [ layoutNode.options, [] ],
-  ].forEach(([ object, excludeKeys ]) =>
+  [[JsonPointer.get(schema, '/ui:widget/options'), []],
+  [JsonPointer.get(schema, '/ui:widget'), []],
+  [schema, [
+    'additionalProperties', 'additionalItems', 'properties', 'items',
+    'required', 'type', 'x-schema-form', '$ref'
+  ]],
+  [JsonPointer.get(schema, '/x-schema-form/options'), []],
+  [JsonPointer.get(schema, '/x-schema-form'), ['items', 'options']],
+  [layoutNode, [
+    '_id', '$ref', 'arrayItem', 'arrayItemType', 'dataPointer', 'dataType',
+    'items', 'key', 'name', 'options', 'recursiveReference', 'type', 'widget'
+  ]],
+  [layoutNode.options, []],
+  ].forEach(([object, excludeKeys]) =>
     mergeFilteredObject(newOptions, object, excludeKeys, fixUiKeys)
   );
   if (!hasOwn(newOptions, 'titleMap')) {
@@ -466,13 +430,8 @@ export function updateInputOptions(layoutNode, schema, jsf) {
 
 /**
  * 'getTitleMapFromOneOf' function
- *
- * @param  { schema } schema
- * @param  { boolean = null } flatList
- * @param  { boolean = false } validateOnly
- * @return { validators }
  */
-export function getTitleMapFromOneOf(
+export function getTitleMapFromOneOf (
   schema: any = {}, flatList: boolean = null, validateOnly = false
 ) {
   let titleMap = null;
@@ -510,20 +469,17 @@ export function getTitleMapFromOneOf(
 
 /**
  * 'getControlValidators' function
- *
- * @param { any } schema
- * @return { validators }
  */
-export function getControlValidators(schema) {
+export function getControlValidators (schema) {
   if (!isObject(schema)) { return null; }
-  let validators: any = { };
+  let validators: any = {};
   if (hasOwn(schema, 'type')) {
     switch (schema.type) {
       case 'string':
         forEach(['pattern', 'format', 'minLength', 'maxLength'], (prop) => {
           if (hasOwn(schema, prop)) { validators[prop] = [schema[prop]]; }
         });
-      break;
+        break;
       case 'number': case 'integer':
         forEach(['Minimum', 'Maximum'], (ucLimit) => {
           let eLimit = 'exclusive' + ucLimit;
@@ -536,17 +492,17 @@ export function getControlValidators(schema) {
         forEach(['multipleOf', 'type'], (prop) => {
           if (hasOwn(schema, prop)) { validators[prop] = [schema[prop]]; }
         });
-      break;
+        break;
       case 'object':
         forEach(['minProperties', 'maxProperties', 'dependencies'], (prop) => {
           if (hasOwn(schema, prop)) { validators[prop] = [schema[prop]]; }
         });
-      break;
+        break;
       case 'array':
         forEach(['minItems', 'maxItems', 'uniqueItems'], (prop) => {
           if (hasOwn(schema, prop)) { validators[prop] = [schema[prop]]; }
         });
-      break;
+        break;
     }
   }
   if (hasOwn(schema, 'enum')) { validators.enum = [schema.enum]; }
@@ -558,15 +514,8 @@ export function getControlValidators(schema) {
  *
  * Find all $ref links in schema and save links and referenced schemas in
  * schemaRefLibrary, schemaRecursiveRefMap, and dataRecursiveRefMap
- *
- * @param { any } schema
- * @param { any } schemaRefLibrary
- * @param { Map<string, string> } schemaRecursiveRefMap
- * @param { Map<string, string> } dataRecursiveRefMap
- * @param { Map<string, number> } arrayMap
- * @return { any }
  */
-export function resolveSchemaReferences(
+export function resolveSchemaReferences (
   schema, schemaRefLibrary, schemaRecursiveRefMap, dataRecursiveRefMap, arrayMap
 ) {
   if (!isObject(schema)) {
@@ -675,15 +624,8 @@ export function resolveSchemaReferences(
 
 /**
  * 'getSubSchema' function
- *
- * @param  { any } schema
- * @param  { Pointer } pointer
- * @param  { object } schemaRefLibrary
- * @param  { Map<string, string> } schemaRecursiveRefMap
- * @param  { string[] = [] } usedPointers
- * @return { any }
  */
-export function getSubSchema(
+export function getSubSchema (
   schema, pointer, schemaRefLibrary = null,
   schemaRecursiveRefMap: Map<string, string> = null, usedPointers: string[] = []
 ) {
@@ -691,13 +633,13 @@ export function getSubSchema(
     return JsonPointer.getCopy(schema, pointer);
   }
   if (typeof pointer !== 'string') { pointer = JsonPointer.compile(pointer); }
-  usedPointers = [ ...usedPointers, pointer ];
+  usedPointers = [...usedPointers, pointer];
   let newSchema: any = null;
   if (pointer === '') {
     newSchema = _.cloneDeep(schema);
   } else {
     const shortPointer = removeRecursiveReferences(pointer, schemaRecursiveRefMap);
-    if (shortPointer !== pointer) { usedPointers = [ ...usedPointers, shortPointer ]; }
+    if (shortPointer !== pointer) { usedPointers = [...usedPointers, shortPointer]; }
     newSchema = JsonPointer.getFirstCopy([
       [schemaRefLibrary, [shortPointer]],
       [schema, pointer],
@@ -745,11 +687,8 @@ export function getSubSchema(
  *
  * Attempt to convert an allOf schema object into
  * a non-allOf schema object with equivalent rules.
- *
- * @param  { any } schema - allOf schema object
- * @return { any } - converted schema object
  */
-export function combineAllOf(schema) {
+export function combineAllOf (schema) {
   if (!isObject(schema) || !isArray(schema.allOf)) { return schema; }
   let mergedSchema = mergeSchemas(...schema.allOf);
   if (Object.keys(schema).length > 1) {
@@ -765,11 +704,8 @@ export function combineAllOf(schema) {
  *
  * Fixes an incorrectly placed required list inside an array schema, by moving
  * it into items.properties or additionalItems.properties, where it belongs.
- *
- * @param  { any } schema - allOf schema object
- * @return { any } - converted schema object
  */
-export function fixRequiredArrayProperties(schema) {
+export function fixRequiredArrayProperties (schema) {
   if (schema.type === 'array' && isArray(schema.required)) {
     let itemsObject = hasOwn(schema.items, 'properties') ? 'items' :
       hasOwn(schema.additionalItems, 'properties') ? 'additionalItems' : null;

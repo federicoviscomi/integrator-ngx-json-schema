@@ -3,6 +3,7 @@
 # compiled output
 compiled
 dist
+dist.tgz
 docs/api
 out-ngc
 tmp

@@ -30,12 +30,8 @@ import { buildFormGroupTemplate, getControl } from './form-group.functions';
 
 /**
  * 'buildLayout' function
- *
- * @param  { any } jsf
- * @param  { any } widgetLibrary
- * @return { any[] }
  */
-export function buildLayout(jsf, widgetLibrary) {
+export function buildLayout (jsf, widgetLibrary) {
   let hasSubmitButton = !JsonPointer.get(jsf, '/formOptions/addSubmit');
   let formLayout = mapLayout(jsf.layout, (layoutItem, index, layoutPointer) => {
     let currentIndex = index;
@@ -69,9 +65,9 @@ export function buildLayout(jsf, widgetLibrary) {
           newNode.options.validationMessages = newNode.options.errorMessages;
           delete newNode.options.errorMessages;
 
-        // Convert Angular Schema Form (AngularJS) 'validationMessage' to
-        // Angular JSON Schema Form 'validationMessages'
-        // TV4 codes from https://github.com/geraintluff/tv4/blob/master/source/api.js
+          // Convert Angular Schema Form (AngularJS) 'validationMessage' to
+          // Angular JSON Schema Form 'validationMessages'
+          // TV4 codes from https://github.com/geraintluff/tv4/blob/master/source/api.js
         } else if (hasOwn(newNode.options, 'validationMessage')) {
           if (typeof newNode.options.validationMessage === 'string') {
             newNode.options.validationMessages = newNode.options.validationMessage;
@@ -80,24 +76,24 @@ export function buildLayout(jsf, widgetLibrary) {
             Object.keys(newNode.options.validationMessage).forEach(key => {
               const code = key + '';
               const newKey =
-                code ===  '0'  ? 'type' :
-                code ===  '1'  ? 'enum' :
-                code === '100' ? 'multipleOf' :
-                code === '101' ? 'minimum' :
-                code === '102' ? 'exclusiveMinimum' :
-                code === '103' ? 'maximum' :
-                code === '104' ? 'exclusiveMaximum' :
-                code === '200' ? 'minLength' :
-                code === '201' ? 'maxLength' :
-                code === '202' ? 'pattern' :
-                code === '300' ? 'minProperties' :
-                code === '301' ? 'maxProperties' :
-                code === '302' ? 'required' :
-                code === '304' ? 'dependencies' :
-                code === '400' ? 'minItems' :
-                code === '401' ? 'maxItems' :
-                code === '402' ? 'uniqueItems' :
-                code === '500' ? 'format' : code + '';
+                code === '0' ? 'type' :
+                  code === '1' ? 'enum' :
+                    code === '100' ? 'multipleOf' :
+                      code === '101' ? 'minimum' :
+                        code === '102' ? 'exclusiveMinimum' :
+                          code === '103' ? 'maximum' :
+                            code === '104' ? 'exclusiveMaximum' :
+                              code === '200' ? 'minLength' :
+                                code === '201' ? 'maxLength' :
+                                  code === '202' ? 'pattern' :
+                                    code === '300' ? 'minProperties' :
+                                      code === '301' ? 'maxProperties' :
+                                        code === '302' ? 'required' :
+                                          code === '304' ? 'dependencies' :
+                                            code === '400' ? 'minItems' :
+                                              code === '401' ? 'maxItems' :
+                                                code === '402' ? 'uniqueItems' :
+                                                  code === '500' ? 'format' : code + '';
               newNode.options.validationMessages[newKey] = newNode.options.validationMessage[key];
             });
           }
@@ -124,7 +120,7 @@ export function buildLayout(jsf, widgetLibrary) {
           JsonPointer.compile(JsonPointer.parseObjectPath(newNode.key), '-');
         delete newNode.key;
 
-      // If newNode is an array, search for dataPointer in child nodes
+        // If newNode is an array, search for dataPointer in child nodes
       } else if (hasOwn(newNode, 'type') && newNode.type.slice(-5) === 'array') {
         const findDataPointer = (items) => {
           if (items === null || typeof items !== 'object') { return; }
@@ -335,7 +331,7 @@ export function buildLayout(jsf, widgetLibrary) {
         if (isArray(newNode.items)) {
           const arrayListItems =
             newNode.items.filter(item => item.type !== '$ref').length -
-              newNode.options.tupleItems;
+            newNode.options.tupleItems;
           if (arrayListItems > newNode.options.listItems) {
             newNode.options.listItems = arrayListItems;
             nodeDataMap.set('listItems', arrayListItems);
@@ -392,7 +388,7 @@ export function buildLayout(jsf, widgetLibrary) {
               buttonText = fixTitle(newNode.name);
             }
 
-          // If newNode doesn't have a title, look for title of parent array item
+            // If newNode doesn't have a title, look for title of parent array item
           } else {
             const parentSchema =
               getFromSchema(jsf.schema, newNode.dataPointer, 'parentSchema');
@@ -474,20 +470,8 @@ export function buildLayout(jsf, widgetLibrary) {
 
 /**
  * 'buildLayoutFromSchema' function
- *
- * @param  { any } jsf -
- * @param  { any } widgetLibrary -
- * @param  { any } nodeValue -
- * @param  { string = '' } schemaPointer -
- * @param  { string = '' } dataPointer -
- * @param  { boolean = false } arrayItem -
- * @param  { string = null } arrayItemType -
- * @param  { boolean = null } removable -
- * @param  { boolean = false } forRefLibrary -
- * @param  { string = '' } dataPointerPrefix -
- * @return { any }
  */
-export function buildLayoutFromSchema(
+export function buildLayoutFromSchema (
   jsf, widgetLibrary, nodeValue = null, schemaPointer = '',
   dataPointer = '', arrayItem = false, arrayItemType: string = null,
   removable: boolean = null, forRefLibrary = false, dataPointerPrefix = ''
@@ -672,7 +656,7 @@ export function buildLayoutFromSchema(
         additionalItemsSchemaPointer = schemaPointer + '/additionalItems';
       }
 
-    // If 'items' is an object = list items only (no tuple items)
+      // If 'items' is an object = list items only (no tuple items)
     } else if (isObject(schema.items)) {
       additionalItemsSchemaPointer = schemaPointer + '/items';
     }
@@ -764,7 +748,7 @@ export function buildLayoutFromSchema(
       buttonText =
         (/^add\b/i.test(newNode.name) ? '' : 'Add ') + fixTitle(newNode.name);
 
-    // If newNode doesn't have a title, look for title of parent array item
+      // If newNode doesn't have a title, look for title of parent array item
     } else {
       const parentSchema =
         JsonPointer.get(jsf.schema, schemaPointer, 0, -1);
@@ -826,15 +810,8 @@ export function buildLayoutFromSchema(
  *
  * If an item from the source layout causes an error and returns null, it is
  * skipped without error, and the function will still return all non-null items.
- *
- * @param  { any[] } layout - the layout to map
- * @param  { (v: any, i?: number, l?: any, p?: string) => any }
- *   function - the funciton to invoke on each element
- * @param  { string|string[] = '' } layoutPointer - the layoutPointer to layout, inside rootLayout
- * @param  { any[] = layout } rootLayout - the root layout, which conatins layout
- * @return { any[] }
  */
-export function mapLayout(layout, fn, layoutPointer = '', rootLayout = layout) {
+export function mapLayout (layout, fn, layoutPointer = '', rootLayout = layout) {
   let indexPad = 0;
   let newLayout: any[] = [];
   forEach(layout, (item, index) => {
@@ -863,22 +840,13 @@ export function mapLayout(layout, fn, layoutPointer = '', rootLayout = layout) {
     }
   });
   return newLayout;
-};
+}
 
 /**
  * 'getLayoutNode' function
  * Copy a new layoutNode from layoutRefLibrary
- *
- * @param  { any } refNode -
- * @param  { any } layoutRefLibrary -
- * @param  { any = null } widgetLibrary -
- * @param  { any = null } nodeValue -
- * @return { any } copied layoutNode
  */
-export function getLayoutNode(
-  refNode, jsf, widgetLibrary: any = null, nodeValue: any = null
-) {
-
+export function getLayoutNode (refNode, jsf, widgetLibrary: any = null, nodeValue: any = null) {
   // If recursive reference and building initial layout, return Add button
   if (refNode.recursiveReference && widgetLibrary) {
     const newLayoutNode = _.cloneDeep(refNode);
@@ -893,8 +861,8 @@ export function getLayoutNode(
     });
     return newLayoutNode;
 
-  // Otherwise, return referenced layout
-} else {
+    // Otherwise, return referenced layout
+  } else {
     let newLayoutNode = jsf.layoutRefLibrary[refNode.$ref];
     // If value defined, build new node from schema (to set array lengths)
     if (isDefined(nodeValue)) {
@@ -925,16 +893,8 @@ export function getLayoutNode(
 
 /**
  * 'buildTitleMap' function
- *
- * @param  { any } titleMap -
- * @param  { any } enumList -
- * @param  { boolean = true } fieldRequired -
- * @param  { boolean = true } flatList -
- * @return { TitleMapItem[] }
  */
-export function buildTitleMap(
-  titleMap, enumList, fieldRequired = true, flatList = true
-) {
+export function buildTitleMap (titleMap, enumList, fieldRequired = true, flatList = true) {
   let newTitleMap: TitleMapItem[] = [];
   let hasEmptyValue = false;
   if (titleMap) {
@@ -985,11 +945,11 @@ export function buildTitleMap(
     for (let i of Object.keys(enumList)) {
       let name = enumList[i];
       let value = enumList[i];
-      newTitleMap.push({ name, value});
+      newTitleMap.push({ name, value });
       if (value === undefined || value === null) { hasEmptyValue = true; }
     }
   } else { // If no titleMap and no enum list, return default map of boolean values
-    newTitleMap = [ { name: 'True', value: true }, { name: 'False', value: false } ];
+    newTitleMap = [{ name: 'True', value: true }, { name: 'False', value: false }];
   }
 
   // Does titleMap have groups?
@@ -1028,7 +988,7 @@ export function buildTitleMap(
         return groupTitleMap;
       }, []);
 
-    // If flatList = false, combine items from matching groups
+      // If flatList = false, combine items from matching groups
     } else {
       newTitleMap = newTitleMap.reduce((groupTitleMap, title) => {
         if (hasOwn(title, 'group')) {

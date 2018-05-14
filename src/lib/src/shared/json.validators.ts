@@ -121,21 +121,17 @@ export class JsonValidators {
    * required validator, and returns an error if the control is empty.
    *
    * Old behavior: (if input type = AbstractControl)
-   * @param {AbstractControl} control - required control
-   * @return {{[key: string]: boolean}} - returns error message if no input
    *
    * New behavior: (if no input, or input type = boolean)
-   * @param {boolean = true} required? - true to validate, false to disable
-   * @return {IValidatorFn} - returns the 'required' validator function itself
    */
-  static required(input: AbstractControl): ValidationErrors|null;
-  static required(input?: boolean): IValidatorFn;
+  static required (input: AbstractControl): ValidationErrors | null;
+  static required (input?: boolean): IValidatorFn;
 
-  static required(input?: AbstractControl|boolean): ValidationErrors|null|IValidatorFn {
+  static required (input?: AbstractControl | boolean): ValidationErrors | null | IValidatorFn {
     if (input === undefined) { input = true; }
     switch (input) {
       case true: // Return required function (do not execute it yet)
-        return (control: AbstractControl, invert = false): ValidationErrors|null => {
+        return (control: AbstractControl, invert = false): ValidationErrors | null => {
           if (invert) { return null; } // if not required, always return valid
           return hasValue(control.value) ? null : { 'required': true };
         };
@@ -153,13 +149,10 @@ export class JsonValidators {
    * or one of an array of types.
    *
    * Note: SchemaPrimitiveType = 'string'|'number'|'integer'|'boolean'|'null'
-   *
-   * @param {SchemaPrimitiveType|SchemaPrimitiveType[]} type - type(s) to accept
-   * @return {IValidatorFn}
    */
-  static type(requiredType: SchemaPrimitiveType|SchemaPrimitiveType[]): IValidatorFn {
+  static type (requiredType: SchemaPrimitiveType | SchemaPrimitiveType[]): IValidatorFn {
     if (!hasValue(requiredType)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       const currentValue: any = control.value;
       const isValid = isArray(requiredType) ?
@@ -177,13 +170,10 @@ export class JsonValidators {
    *
    * Converts types as needed to allow string inputs to still correctly
    * match number, boolean, and null enum values.
-   *
-   * @param {any[]} allowedValues - array of acceptable values
-   * @return {IValidatorFn}
    */
-  static enum(allowedValues: any[]): IValidatorFn {
+  static enum (allowedValues: any[]): IValidatorFn {
     if (!isArray(allowedValues)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       const currentValue: any = control.value;
       const isEqual = (enumValue, inputValue) =>
@@ -212,20 +202,17 @@ export class JsonValidators {
    * match number, boolean, and null values.
    *
    * TODO: modify to work with objects
-   *
-   * @param {any[]} requiredValue - required value
-   * @return {IValidatorFn}
    */
-  static const(requiredValue: any): IValidatorFn {
+  static const (requiredValue: any): IValidatorFn {
     if (!hasValue(requiredValue)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       const currentValue: any = control.value;
       const isEqual = (constValue, inputValue) =>
         constValue === inputValue ||
         isNumber(constValue) && +inputValue === +constValue ||
         isBoolean(constValue, 'strict') &&
-          toJavaScriptType(inputValue, 'boolean') === constValue ||
+        toJavaScriptType(inputValue, 'boolean') === constValue ||
         constValue === null && !hasValue(inputValue);
       const isValid = isEqual(requiredValue, currentValue);
       return xor(isValid, invert) ?
@@ -237,14 +224,10 @@ export class JsonValidators {
    * 'minLength' validator
    *
    * Requires a control's text value to be greater than a specified length.
-   *
-   * @param {number} minimumLength - minimum allowed string length
-   * @param {boolean = false} invert - instead return error object only if valid
-   * @return {IValidatorFn}
    */
-  static minLength(minimumLength: number): IValidatorFn {
+  static minLength (minimumLength: number): IValidatorFn {
     if (!hasValue(minimumLength)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let currentLength = isString(control.value) ? control.value.length : 0;
       let isValid = currentLength >= minimumLength;
@@ -257,14 +240,10 @@ export class JsonValidators {
    * 'maxLength' validator
    *
    * Requires a control's text value to be less than a specified length.
-   *
-   * @param {number} maximumLength - maximum allowed string length
-   * @param {boolean = false} invert - instead return error object only if valid
-   * @return {IValidatorFn}
    */
-  static maxLength(maximumLength: number): IValidatorFn {
+  static maxLength (maximumLength: number): IValidatorFn {
     if (!hasValue(maximumLength)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       let currentLength = isString(control.value) ? control.value.length : 0;
       let isValid = currentLength <= maximumLength;
       return xor(isValid, invert) ?
@@ -285,14 +264,10 @@ export class JsonValidators {
    *
    * To return to the default funcitonality, and match the entire string,
    * pass TRUE as the optional second parameter.
-   *
-   * @param {string} pattern - regular expression pattern
-   * @param {boolean = false} wholeString - match whole value string?
-   * @return {IValidatorFn}
    */
-  static pattern(pattern: string|RegExp, wholeString = false): IValidatorFn {
+  static pattern (pattern: string | RegExp, wholeString = false): IValidatorFn {
     if (!hasValue(pattern)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let regex: RegExp;
       let requiredPattern: string;
@@ -322,18 +297,15 @@ export class JsonValidators {
    *
    * Fast format regular expressions copied from AJV:
    * https://github.com/epoberezkin/ajv/blob/master/lib/compile/formats.js
-   *
-   * @param {JsonSchemaFormatNames} requiredFormat - format to check
-   * @return {IValidatorFn}
    */
-  static format(requiredFormat: JsonSchemaFormatNames): IValidatorFn {
+  static format (requiredFormat: JsonSchemaFormatNames): IValidatorFn {
     if (!hasValue(requiredFormat)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let isValid: boolean;
-      let currentValue: string|Date = control.value;
+      let currentValue: string | Date = control.value;
       if (isString(currentValue)) {
-        const formatTest: Function|RegExp = jsonSchemaFormatTests[requiredFormat];
+        const formatTest: Function | RegExp = jsonSchemaFormatTests[requiredFormat];
         if (typeof formatTest === 'object') {
           isValid = (<RegExp>formatTest).test(<string>currentValue);
         } else if (typeof formatTest === 'function') {
@@ -361,13 +333,10 @@ export class JsonValidators {
    * Any non-numeric value is also valid (according to the HTML forms spec,
    * a non-numeric value doesn't have a minimum).
    * https://www.w3.org/TR/html5/forms.html#attr-input-max
-   *
-   * @param {number} minimum - minimum allowed value
-   * @return {IValidatorFn}
    */
-  static minimum(minimumValue: number): IValidatorFn {
+  static minimum (minimumValue: number): IValidatorFn {
     if (!hasValue(minimumValue)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let currentValue = control.value;
       let isValid = !isNumber(currentValue) || currentValue >= minimumValue;
@@ -384,13 +353,10 @@ export class JsonValidators {
    * Any non-numeric value is also valid (according to the HTML forms spec,
    * a non-numeric value doesn't have a maximum).
    * https://www.w3.org/TR/html5/forms.html#attr-input-max
-   *
-   * @param {number} exclusiveMinimumValue - maximum allowed value
-   * @return {IValidatorFn}
    */
-  static exclusiveMinimum(exclusiveMinimumValue: number): IValidatorFn {
+  static exclusiveMinimum (exclusiveMinimumValue: number): IValidatorFn {
     if (!hasValue(exclusiveMinimumValue)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let currentValue = control.value;
       let isValid = !isNumber(currentValue) || +currentValue < exclusiveMinimumValue;
@@ -408,13 +374,10 @@ export class JsonValidators {
    * Any non-numeric value is also valid (according to the HTML forms spec,
    * a non-numeric value doesn't have a maximum).
    * https://www.w3.org/TR/html5/forms.html#attr-input-max
-   *
-   * @param {number} maximumValue - maximum allowed value
-   * @return {IValidatorFn}
    */
-  static maximum(maximumValue: number): IValidatorFn {
+  static maximum (maximumValue: number): IValidatorFn {
     if (!hasValue(maximumValue)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let currentValue = control.value;
       let isValid = !isNumber(currentValue) || +currentValue <= maximumValue;
@@ -431,13 +394,10 @@ export class JsonValidators {
    * Any non-numeric value is also valid (according to the HTML forms spec,
    * a non-numeric value doesn't have a maximum).
    * https://www.w3.org/TR/html5/forms.html#attr-input-max
-   *
-   * @param {number} exclusiveMaximumValue - maximum allowed value
-   * @return {IValidatorFn}
    */
-  static exclusiveMaximum(exclusiveMaximumValue: number): IValidatorFn {
+  static exclusiveMaximum (exclusiveMaximumValue: number): IValidatorFn {
     if (!hasValue(exclusiveMaximumValue)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let currentValue = control.value;
       let isValid = !isNumber(currentValue) || +currentValue < exclusiveMaximumValue;
@@ -451,13 +411,10 @@ export class JsonValidators {
    *
    * Requires a control to have a numeric value that is a multiple
    * of a specified number.
-   *
-   * @param {number} multipleOfValue - number value must be a multiple of
-   * @return {IValidatorFn}
    */
-  static multipleOf(multipleOfValue: number): IValidatorFn {
+  static multipleOf (multipleOfValue: number): IValidatorFn {
     if (!hasValue(multipleOfValue)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let currentValue = control.value;
       let isValid = isNumber(currentValue) &&
@@ -472,13 +429,10 @@ export class JsonValidators {
    *
    * Requires a form group to have a minimum number of properties (i.e. have
    * values entered in a minimum number of controls within the group).
-   *
-   * @param {number} minimumProperties - minimum number of properties allowed
-   * @return {IValidatorFn}
    */
-  static minProperties(minimumProperties: number): IValidatorFn {
+  static minProperties (minimumProperties: number): IValidatorFn {
     if (!hasValue(minimumProperties)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let currentProperties = Object.keys(control.value).length || 0;
       let isValid = currentProperties >= minimumProperties;
@@ -495,13 +449,10 @@ export class JsonValidators {
    *
    * Note: Has no effect if the form group does not contain more than the
    * maximum number of controls.
-   *
-   * @param {number} maximumProperties - maximum number of properties allowed
-   * @return {IValidatorFn}
    */
-  static maxProperties(maximumProperties: number): IValidatorFn {
+  static maxProperties (maximumProperties: number): IValidatorFn {
     if (!hasValue(maximumProperties)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       let currentProperties = Object.keys(control.value).length || 0;
       let isValid = currentProperties <= maximumProperties;
       return xor(isValid, invert) ?
@@ -517,27 +468,24 @@ export class JsonValidators {
    *
    * Examples:
    * https://spacetelescope.github.io/understanding-json-schema/reference/object.html#dependencies
-   *
-   * @param {any} dependencies - required dependencies
-   * @return {IValidatorFn}
    */
-  static dependencies(dependencies: any): IValidatorFn {
+  static dependencies (dependencies: any): IValidatorFn {
     if (getType(dependencies) !== 'object' || isEmpty(dependencies)) {
       return JsonValidators.nullValidator;
     }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let allErrors = _mergeObjects(
         forEachCopy(dependencies, (value, requiringField) => {
           if (!hasValue(control.value[requiringField])) { return null; }
-          let requiringFieldErrors: ValidationErrors = { };
+          let requiringFieldErrors: ValidationErrors = {};
           let requiredFields: string[];
-          let properties: ValidationErrors = { };
+          let properties: ValidationErrors = {};
           if (getType(dependencies[requiringField]) === 'array') {
             requiredFields = dependencies[requiringField];
           } else if (getType(dependencies[requiringField]) === 'object') {
             requiredFields = dependencies[requiringField]['required'] || [];
-            properties = dependencies[requiringField]['properties'] || { };
+            properties = dependencies[requiringField]['properties'] || {};
           }
 
           // Validate property dependencies
@@ -579,13 +527,10 @@ export class JsonValidators {
    * 'minItems' validator
    *
    * Requires a form array to have a minimum number of values.
-   *
-   * @param {number} minimumItems - minimum number of items allowed
-   * @return {IValidatorFn}
    */
-  static minItems(minimumItems: number): IValidatorFn {
+  static minItems (minimumItems: number): IValidatorFn {
     if (!hasValue(minimumItems)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let currentItems = isArray(control.value) ? control.value.length : 0;
       let isValid = currentItems >= minimumItems;
@@ -598,13 +543,10 @@ export class JsonValidators {
    * 'maxItems' validator
    *
    * Requires a form array to have a maximum number of values.
-   *
-   * @param {number} maximumItems - maximum number of items allowed
-   * @return {IValidatorFn}
    */
-  static maxItems(maximumItems: number): IValidatorFn {
+  static maxItems (maximumItems: number): IValidatorFn {
     if (!hasValue(maximumItems)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       let currentItems = isArray(control.value) ? control.value.length : 0;
       let isValid = currentItems <= maximumItems;
       return xor(isValid, invert) ?
@@ -616,13 +558,10 @@ export class JsonValidators {
    * 'uniqueItems' validator
    *
    * Requires values in a form array to be unique.
-   *
-   * @param {boolean = true} unique? - true to validate, false to disable
-   * @return {IValidatorFn}
    */
-  static uniqueItems(unique = true): IValidatorFn {
+  static uniqueItems (unique = true): IValidatorFn {
     if (!unique) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let sorted: any[] = control.value.slice().sort();
       let duplicateItems = [];
@@ -643,13 +582,10 @@ export class JsonValidators {
    * TODO: Complete this validator
    *
    * Requires values in a form array to be unique.
-   *
-   * @param {boolean = true} unique? - true to validate, false to disable
-   * @return {IValidatorFn}
    */
-  static contains(requiredItem = true): IValidatorFn {
+  static contains (requiredItem = true): IValidatorFn {
     if (!requiredItem) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value) || !isArray(control.value)) { return null; }
       const currentItems = control.value;
       // const isValid = currentItems.some(item =>
@@ -664,7 +600,7 @@ export class JsonValidators {
   /**
    * No-op validator. Included for backward compatibility.
    */
-  static nullValidator(control: AbstractControl): ValidationErrors|null {
+  static nullValidator (control: AbstractControl): ValidationErrors | null {
     return null;
   }
 
@@ -684,15 +620,12 @@ export class JsonValidators {
    * evaluates to valid if any one or more of the submitted validators are
    * valid. If every validator is invalid, it returns combined errors from
    * all validators.
-   *
-   * @param {IValidatorFn[]} validators - array of validators to combine
-   * @return {IValidatorFn} - single combined validator function
    */
-  static composeAnyOf(validators: IValidatorFn[]): IValidatorFn {
+  static composeAnyOf (validators: IValidatorFn[]): IValidatorFn {
     if (!validators) { return null; }
     let presentValidators = validators.filter(isDefined);
     if (presentValidators.length === 0) { return null; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       let arrayOfErrors =
         _executeValidators(control, presentValidators, invert).filter(isDefined);
       let isValid = validators.length > arrayOfErrors.length;
@@ -708,15 +641,12 @@ export class JsonValidators {
    * evaluates to valid only if exactly one of the submitted validators
    * is valid. Otherwise returns combined information from all validators,
    * both valid and invalid.
-   *
-   * @param {IValidatorFn[]} validators - array of validators to combine
-   * @return {IValidatorFn} - single combined validator function
    */
-  static composeOneOf(validators: IValidatorFn[]): IValidatorFn {
+  static composeOneOf (validators: IValidatorFn[]): IValidatorFn {
     if (!validators) { return null; }
     let presentValidators = validators.filter(isDefined);
     if (presentValidators.length === 0) { return null; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       let arrayOfErrors =
         _executeValidators(control, presentValidators);
       let validControls =
@@ -735,15 +665,12 @@ export class JsonValidators {
    * Accepts an array of validators and returns a single validator that
    * evaluates to valid only if all the submitted validators are individually
    * valid. Otherwise it returns combined errors from all invalid validators.
-   *
-   * @param {IValidatorFn[]} validators - array of validators to combine
-   * @return {IValidatorFn} - single combined validator function
    */
-  static composeAllOf(validators: IValidatorFn[]): IValidatorFn {
+  static composeAllOf (validators: IValidatorFn[]): IValidatorFn {
     if (!validators) { return null; }
     let presentValidators = validators.filter(isDefined);
     if (presentValidators.length === 0) { return null; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       let combinedErrors = _mergeErrors(
         _executeValidators(control, presentValidators, invert)
       );
@@ -762,13 +689,10 @@ export class JsonValidators {
    * (Note: this function can itself be inverted
    *   - e.g. composeNot(composeNot(validator)) -
    *   but this can be confusing and is therefore not recommended.)
-   *
-   * @param {IValidatorFn[]} validators - validator(s) to invert
-   * @return {IValidatorFn} - new validator function that returns opposite result
    */
-  static composeNot(validator: IValidatorFn): IValidatorFn {
+  static composeNot (validator: IValidatorFn): IValidatorFn {
     if (!validator) { return null; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null => {
+    return (control: AbstractControl, invert = false): ValidationErrors | null => {
       if (isEmpty(control.value)) { return null; }
       let error = validator(control, !invert);
       let isValid = error === null;
@@ -779,25 +703,19 @@ export class JsonValidators {
 
   /**
    * 'compose' validator combination function
-   *
-   * @param {IValidatorFn[]} validators - array of validators to combine
-   * @return {IValidatorFn} - single combined validator function
    */
-  static compose(validators: IValidatorFn[]): IValidatorFn {
+  static compose (validators: IValidatorFn[]): IValidatorFn {
     if (!validators) { return null; }
     let presentValidators = validators.filter(isDefined);
     if (presentValidators.length === 0) { return null; }
-    return (control: AbstractControl, invert = false): ValidationErrors|null =>
+    return (control: AbstractControl, invert = false): ValidationErrors | null =>
       _mergeErrors(_executeValidators(control, presentValidators, invert));
   };
 
   /**
    * 'composeAsync' async validator combination function
-   *
-   * @param {AsyncIValidatorFn[]} async validators - array of async validators
-   * @return {AsyncIValidatorFn} - single combined async validator function
    */
-  static composeAsync(validators: AsyncIValidatorFn[]): AsyncIValidatorFn {
+  static composeAsync (validators: AsyncIValidatorFn[]): AsyncIValidatorFn {
     if (!validators) { return null; }
     let presentValidators = validators.filter(isDefined);
     if (presentValidators.length === 0) { return null; }
@@ -814,9 +732,9 @@ export class JsonValidators {
   /**
    * Validator that requires controls to have a value greater than a number.
    */
-  static min(min: number): ValidatorFn {
+  static min (min: number): ValidatorFn {
     if (!hasValue(min)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl): ValidationErrors|null => {
+    return (control: AbstractControl): ValidationErrors | null => {
       // don't validate empty values to allow optional controls
       if (isEmpty(control.value) || isEmpty(min)) { return null; }
       const value = parseFloat(control.value);
@@ -830,9 +748,9 @@ export class JsonValidators {
   /**
    * Validator that requires controls to have a value less than a number.
    */
-  static max(max: number): ValidatorFn {
+  static max (max: number): ValidatorFn {
     if (!hasValue(max)) { return JsonValidators.nullValidator; }
-    return (control: AbstractControl): ValidationErrors|null => {
+    return (control: AbstractControl): ValidationErrors | null => {
       // don't validate empty values to allow optional controls
       if (isEmpty(control.value) || isEmpty(max)) { return null; }
       const value = parseFloat(control.value);
@@ -846,7 +764,7 @@ export class JsonValidators {
   /**
    * Validator that requires control value to be true.
    */
-  static requiredTrue(control: AbstractControl): ValidationErrors|null {
+  static requiredTrue (control: AbstractControl): ValidationErrors | null {
     if (!control) { return JsonValidators.nullValidator; }
     return control.value === true ? null : { 'required': true };
   }
@@ -854,7 +772,7 @@ export class JsonValidators {
   /**
    * Validator that performs email validation.
    */
-  static email(control: AbstractControl): ValidationErrors|null {
+  static email (control: AbstractControl): ValidationErrors | null {
     if (!control) { return JsonValidators.nullValidator; }
     const EMAIL_REGEXP =
       /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;

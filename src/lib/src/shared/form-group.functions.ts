@@ -42,16 +42,8 @@ import {
  *
  * TODO: add support for pattern properties
  * https://spacetelescope.github.io/understanding-json-schema/reference/object.html
- *
- * @param  {any} jsf -
- * @param  {any = null} nodeValue -
- * @param  {boolean = true} mapArrays -
- * @param  {string = ''} schemaPointer -
- * @param  {string = ''} dataPointer -
- * @param  {any = ''} templatePointer -
- * @return {any} -
  */
-export function buildFormGroupTemplate(
+export function buildFormGroupTemplate (
   jsf: any, nodeValue: any = null, setValues = true,
   schemaPointer = '', dataPointer = '', templatePointer = ''
 ) {
@@ -71,9 +63,9 @@ export function buildFormGroupTemplate(
   let controlType =
     (hasOwn(schema, 'properties') || hasOwn(schema, 'additionalProperties')) &&
       schemaType === 'object' ? 'FormGroup' :
-    (hasOwn(schema, 'items') || hasOwn(schema, 'additionalItems')) &&
-      schemaType === 'array' ? 'FormArray' :
-    !schemaType && hasOwn(schema, '$ref') ? '$ref' : 'FormControl';
+      (hasOwn(schema, 'items') || hasOwn(schema, 'additionalItems')) &&
+        schemaType === 'array' ? 'FormArray' :
+        !schemaType && hasOwn(schema, '$ref') ? '$ref' : 'FormControl';
   const shortDataPointer =
     removeRecursiveReferences(dataPointer, jsf.dataRecursiveRefMap, jsf.arrayMap);
   if (!jsf.dataMap.has(shortDataPointer)) {
@@ -168,8 +160,8 @@ export function buildFormGroupTemplate(
                   dataPointer + '/' + i,
                   templatePointer + '/controls/' + i
                 ) :
-              itemRecursive ?
-                null : _.cloneDeep(jsf.templateRefLibrary[itemRefPointer])
+                itemRecursive ?
+                  null : _.cloneDeep(jsf.templateRefLibrary[itemRefPointer])
             );
           }
         }
@@ -179,7 +171,7 @@ export function buildFormGroupTemplate(
           additionalItemsPointer = schemaPointer + '/additionalItems';
         }
 
-      // If 'items' is an object = list items only (no tuple items)
+        // If 'items' is an object = list items only (no tuple items)
       } else {
         additionalItemsPointer = schemaPointer + '/items';
       }
@@ -258,11 +250,8 @@ export function buildFormGroupTemplate(
 
 /**
  * 'buildFormGroup' function
- *
- * @param {any} template -
- * @return {AbstractControl}
 */
-export function buildFormGroup(template: any): AbstractControl {
+export function buildFormGroup (template: any): AbstractControl {
   let validatorFns: ValidatorFn[] = [];
   let validatorFn: ValidatorFn = null;
   if (hasOwn(template, 'validators')) {
@@ -300,11 +289,8 @@ export function buildFormGroup(template: any): AbstractControl {
 
 /**
  * 'mergeValues' function
- *
- * @param  {any[]} ...valuesToMerge - Multiple values to merge
- * @return {any} - Merged values
  */
-export function mergeValues(...valuesToMerge) {
+export function mergeValues (...valuesToMerge) {
   let mergedValues: any = null;
   for (let currentValue of valuesToMerge) {
     if (!isEmpty(currentValue)) {
@@ -312,7 +298,7 @@ export function mergeValues(...valuesToMerge) {
         (isEmpty(mergedValues) || typeof mergedValues !== 'object')
       ) {
         if (isArray(currentValue)) {
-          mergedValues = [ ...currentValue ];
+          mergedValues = [...currentValue];
         } else if (isObject(currentValue)) {
           mergedValues = { ...currentValue };
         }
@@ -352,12 +338,8 @@ export function mergeValues(...valuesToMerge) {
 
 /**
  * 'setRequiredFields' function
- *
- * @param {schema} schema - JSON Schema
- * @param {object} formControlTemplate - Form Control Template object
- * @return {boolean} - true if any fields have been set to required, false if not
  */
-export function setRequiredFields(schema: any, formControlTemplate: any): boolean {
+export function setRequiredFields (schema: any, formControlTemplate: any): boolean {
   let fieldsRequired = false;
   if (hasOwn(schema, 'required') && !isEmpty(schema.required)) {
     fieldsRequired = true;
@@ -374,15 +356,8 @@ export function setRequiredFields(schema: any, formControlTemplate: any): boolea
 
 /**
  * 'formatFormData' function
- *
- * @param {any} formData - Angular FormGroup data object
- * @param {Map<string, any>} dataMap -
- * @param {Map<string, string>} recursiveRefMap -
- * @param {Map<string, number>} arrayMap -
- * @param {boolean = false} fixErrors - if TRUE, tries to fix data
- * @return {any} - formatted data object
  */
-export function formatFormData(
+export function formatFormData (
   formData: any, dataMap: Map<string, any>,
   recursiveRefMap: Map<string, string>, arrayMap: Map<string, number>,
   returnEmptyFields = false, fixErrors = false
@@ -415,8 +390,8 @@ export function formatFormData(
             JsonPointer.set(formattedData, dataPointer, newValue);
           }
 
-        // If returnEmptyFields === false,
-        // only add empty arrays and objects to required keys
+          // If returnEmptyFields === false,
+          // only add empty arrays and objects to required keys
         } else if (schemaType === 'object' && !returnEmptyFields) {
           (dataMap.get(genericPointer).get('required') || []).forEach(key => {
             const keySchemaType =
@@ -434,10 +409,10 @@ export function formatFormData(
           // "2000-03-14T01:59:26.535" -> "2000-03-14T01:59:26.535Z" (add "Z")
           if (/^\d\d\d\d-[0-1]\d-[0-3]\d[t\s][0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?$/i.test(value)) {
             JsonPointer.set(formattedData, dataPointer, `${value}Z`);
-          // "2000-03-14T01:59" -> "2000-03-14T01:59:00Z" (add ":00Z")
+            // "2000-03-14T01:59" -> "2000-03-14T01:59:00Z" (add ":00Z")
           } else if (/^\d\d\d\d-[0-1]\d-[0-3]\d[t\s][0-2]\d:[0-5]\d$/i.test(value)) {
             JsonPointer.set(formattedData, dataPointer, `${value}:00Z`);
-          // "2000-03-14" -> "2000-03-14T00:00:00Z" (add "T00:00:00Z")
+            // "2000-03-14" -> "2000-03-14T00:00:00Z" (add "T00:00:00Z")
           } else if (fixErrors && /^\d\d\d\d-[0-1]\d-[0-3]\d$/i.test(value)) {
             JsonPointer.set(formattedData, dataPointer, `${value}:00:00:00Z`);
           }
@@ -465,13 +440,8 @@ export function formatFormData(
  *
  * If the optional third parameter 'returnGroup' is set to TRUE, the group
  * containing the control is returned, rather than the control itself.
- *
- * @param {FormGroup} formGroup - Angular FormGroup to get value from
- * @param {Pointer} dataPointer - JSON Pointer (string or array)
- * @param {boolean = false} returnGroup - If true, return group containing control
- * @return {group} - Located value (or null, if no control found)
  */
-export function getControl(
+export function getControl (
   formGroup: any, dataPointer: Pointer, returnGroup = false
 ): any {
   if (!isObject(formGroup) || !JsonPointer.isJsonPointer(dataPointer)) {
