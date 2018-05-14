@@ -2,7 +2,7 @@ export {
   _executeValidators, _executeAsyncValidators, _mergeObjects, _mergeErrors,
   isDefined, hasValue, isEmpty, isString, isNumber, isInteger, isBoolean,
   isFunction, isObject, isArray, isDate, isMap, isSet, isPromise, isObservable,
-  getType, isType, isPrimitive, toJavaScriptType, toSchemaType, _toPromise,
+  getType, isType, isPrimitive, toJavaScriptType, toSchemaType, /* _toPromise, */
   toObservable, inArray, xor, SchemaPrimitiveType, SchemaType, JavaScriptPrimitiveType,
   JavaScriptType, PrimitiveValue, PlainObject, IValidatorFn, AsyncIValidatorFn
 } from './src/shared/validator.functions';
