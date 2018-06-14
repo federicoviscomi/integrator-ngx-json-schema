@@ -1,0 +1,91 @@
+{
+  "name": "ngx-json-schema",
+  "version": "0.7.0-alpha.16",
+  "author": {
+    "name": "Carlo Dapor",
+    "email": "catull@gmail.com"
+  },
+  "description": "Angular JSON schema form",
+  "keywords": [
+    "Angular",
+    "ng",
+    "JSON Schema",
+    "form"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catull/ngx-json-schema"
+  },
+  "bugs": {
+    "url": "https://github.com/catull/ngx-json-schema/issues"
+  },
+  "main": "./bundles/ngx-json-schema.umd.js",
+  "module": "./ngx-json-schema.es5.js",
+  "es2015": "./ngx-json-schema.js",
+  "typings": "./ngx-json-schema.d.ts",
+  "engines": {
+    "node": ">= 8.11.1",
+    "npm": ">= 5.6.0"
+  },
+  "scripts": {
+    "ng": "ng",
+    "serve": "ng serve",
+    "start": "ng serve",
+    "test": "ng test",
+    "lint": "ng lint",
+    "docs": "typedoc src/lib/src/",
+    "clean": "rimraf out-ngc dist dist.tgz",
+    "prebuild": "npm run clean",
+    "build": "ng-packagr -p ng-package.json",
+    "postbuild": "rimraf out-ngc",
+    "prepublishOnly": "npm run build",
+    "publish": "npm publish dist",
+    "preng-build": "rimraf dist/*",
+    "ng-build": "ng build",
+    "predeploy": "npm run ng-build",
+    "deploy": "firebase deploy"
+  },
+  "peerDependencies": {
+    "ajv": "6.5.0",
+    "lodash": "4.17.10",
+    "rxjs": "^6.1.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.6.1",
+    "@angular/animations": "6.0.1",
+    "@angular/cli": "^6.0.1",
+    "@angular/common": "6.0.1",
+    "@angular/compiler": "6.0.1",
+    "@angular/compiler-cli": "6.0.1",
+    "@angular/core": "6.0.1",
+    "@angular/forms": "6.0.1",
+    "@angular/http": "6.0.1",
+    "@angular/language-service": "6.0.1",
+    "@angular/platform-browser": "6.0.1",
+    "@angular/platform-browser-dynamic": "6.0.1",
+    "@angular/router": "6.0.1",
+    "@types/ace": "0.0.39",
+    "@types/jasmine": "^2.8.7",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^10.0.8",
+    "codelyzer": "^4.3.0",
+    "core-js": "^2.5.6",
+    "jasmine-core": "^3.1.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "karma": "^2.0.2",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-cli": "^1.0.1",
+    "karma-coverage-istanbul-reporter": "^1.4.2",
+    "karma-jasmine": "^1.1.1",
+    "karma-jasmine-html-reporter": "^1.0.0",
+    "ng-packagr": "^2.4.4",
+    "protractor": "^5.3.2",
+    "rimraf": "^2.6.2",
+    "ts-node": "^6.0.3",
+    "tslint": "^5.10.0",
+    "typedoc": "^0.11.1",
+    "typescript": "2.7.2",
+    "zone.js": "^0.8.26"
+  }
+}
